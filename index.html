@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Tebak Angka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>Tebak Angka (1 - 400)</h1>
+    <p>Tebak angka yang dipilih secara acak dari 1 hingga 400!</p>
+
+    <input type="number" id="guessInput" placeholder="Masukkan angka" min="1" max="100">
+    <button onclick="checkGuess()">Tebak</button>
+
+    <div class="message">
+        <p id="resultMessage" class="result"></p>
+        <p id="attemptsMessage"></p>
+    </div>
+</div>
+
+<script>
+    // Variabel untuk menyimpan angka acak dan jumlah tebakan
+    let randomNumber = Math.floor(Math.random() * 400) + 1;
+    let attempts = 0;
+
+    // Fungsi untuk memeriksa tebakan pengguna
+    function checkGuess() {
+        let userGuess = document.getElementById("guessInput").value;
+        let resultMessage = document.getElementById("resultMessage");
+        let attemptsMessage = document.getElementById("attemptsMessage");
+
+        attempts++;  // Tambah jumlah tebakan
+
+        if (userGuess == randomNumber) {
+            resultMessage.innerHTML = "Selamat! Anda menebak angka dengan benar!";
+            resultMessage.style.color = "green";
+            attemptsMessage.innerHTML = `Anda berhasil menebak dalam ${attempts} kali tebakan.`;
+            attemptsMessage.style.color = "green";
+        } else if (userGuess > randomNumber) {
+            resultMessage.innerHTML = "Angka terlalu tinggi!";
+            resultMessage.style.color = "red";
+        } else {
+            resultMessage.innerHTML = "Angka terlalu rendah!";
+            resultMessage.style.color = "red";
+        }
+
+        // Reset input setelah menebak
+        document.getElementById("guessInput").value = '';
+    }
+</script>
+
+</body>
+</html>
